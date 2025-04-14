@@ -20,7 +20,7 @@ while True:
 
         print(f"\n{nomeJogador}:\nHP: {hp}\nDano: {danoJogador}||Defesa: {defesaJogador}\n\nInimigo:\nHP: {hp}\nDano: {danoCpu}||Defesa: {defesaCpu}")
         rodada = 0
-
+        listaPocoes = ["1 - Super Força\n\n", "2 - Super cura\n\n", "3 - Super vida\n\n", "4 - Pula Pula"]
         while vidaCpu and vidaJogador > 0 :
             rodada +=1
             pocaoUsada = 0
@@ -28,16 +28,17 @@ while True:
             print(f"Seu HP: {vidaJogador} || HP do inimigo: {vidaCpu}")
             dano = 0
             multPocao = 1
-            listaPocoes = ["1 - Super Força\n\n", "2 - Super cura\n\n", "3 - Super vida\n\n", "4 - Pula Pula"]
-            texto = ""
-            while True:
 
+
+            while True:
+                texto = ""
                 acao = int(input("\nSeu turno:1- para atacar, 2 -para curar, 3 -para acessar ao inventário"))
                 if acao == 1:
 
                     danoCritico: int = random.randint(0,9)
                     dano = ((danoJogador - defesaCpu) * critico[danoCritico])*multPocao
                     vidaCpu = vidaCpu - dano
+                    multPocao = 1
                     print(f"\nVocê ataca!!! inimigo perde {dano} de hp")
                     break
                 elif acao == 2:
@@ -60,7 +61,7 @@ while True:
                         if pocao == 1:
                             multPocao = 2
                             pocaoUsada +=1
-                            listaPocoes.pop(0)
+                            listaPocoes.remove("1 - Super Força\n\n")
             dano = 0
             acaoCpu = random.randint(1,2)
             if acaoCpu == 1:
