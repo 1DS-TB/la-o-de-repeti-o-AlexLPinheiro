@@ -27,23 +27,26 @@ while True:
             print(f"\nRodada {rodada}")
             print(f"Seu HP: {vidaJogador} || HP do inimigo: {vidaCpu}")
             dano = 0
-            multPocao = 1
+            multPocaoDano = 1
+            multPocaoCura = 1
+            multPocaoVida = 0
+            multPocaoPula = 1
 
 
             while True:
+                vidaJogador = vidaJogador + multPocaoVida
                 texto = ""
                 acao = int(input("\nSeu turno:1- para atacar, 2 -para curar, 3 -para acessar ao inventário"))
                 if acao == 1:
 
                     danoCritico: int = random.randint(0,9)
-                    dano = ((danoJogador - defesaCpu) * critico[danoCritico])*multPocao
+                    dano = ((danoJogador - defesaCpu) * critico[danoCritico])*multPocaoDano
                     vidaCpu = vidaCpu - dano
-                    multPocao = 1
                     print(f"\nVocê ataca!!! inimigo perde {dano} de hp")
                     break
                 elif acao == 2:
-                    if vidaJogador < hp-20:
-                        vidaJogador = vidaJogador+ 20
+                    if vidaJogador < (hp-20) * multPocaoCura:
+                        vidaJogador = vidaJogador+ (20 * 2)
                         print("\nVocê ganha +20 de HP!")
                     else:
                         cura = hp-vidaJogador
@@ -58,25 +61,51 @@ while True:
                         for i in listaPocoes:
                             texto = texto + i
                         pocao = int(input(f"\nInventário:\n\n{texto}\n\n5- Sair"))
-                        if pocao == 1:
-                            multPocao = 2
-                            pocaoUsada +=1
-                            listaPocoes.remove("1 - Super Força\n\n")
-            dano = 0
-            acaoCpu = random.randint(1,2)
-            if acaoCpu == 1:
-                danoCritico= random.randint(0, 9)
-                dano = (danoCpu - defesaJogador) * critico[danoCritico]
-                vidaJogador = vidaJogador - dano
-                print(f"Inimigo ataca!!! Você perde {dano} de hp")
-            else:
-                if vidaCpu < hp-20:
-                    vidaCpu = vidaCpu + 20
-                    print(f"Inimigo se cura!!! Ganhou 20 pontos de vida.")
+                        if multPocaoDano != 2:
+                            if pocao == 1:
+                                multPocaoDano = 2
+                                pocaoUsada +=1
+                                listaPocoes.remove("1 - Super Força\n\n")
+                        else:
+                            multPocaoDano = 1
+                        if multPocaoCura !=2:
+                            if pocao == 2:
+                                multPocaoCura = 2
+                                pocaoUsada +=1
+                                listaPocoes.remove("2 - Super cura\n\n")
+                        else:
+                            multPocaoCura = 1
+                        if multPocaoVida != 50:
+                            if pocao == 3:
+                                multPocaoVida = 50
+                                pocaoUsada +=1
+                                listaPocoes.remove("3 - Super vida\n\n")
+                        else:
+                            multPocaoVida = 0
+                        if multPocaoVida != 2:
+                            if pocao == 4:
+                                multPocaoPula = 2
+                                pocaoUsada +=1
+                                listaPocoes.remove("4 - Pula Pula")
+                        else:
+                            multPocaoPula = 1
+            if multPocaoPula == 1:
+                dano = 0
+                acaoCpu = random.randint(1,2)
+                if acaoCpu == 1:
+                    danoCritico= random.randint(0, 9)
+                    dano = (danoCpu - defesaJogador) * critico[danoCritico]
+                    vidaJogador = vidaJogador - dano
+                    print(f"Inimigo ataca!!! Você perde {dano} de hp")
                 else:
-                    cura = hp-vidaCpu
-                    vidaCpu= vidaCpu+ cura
-                    print(f"Inimigo se cura!!! Ganhou {cura} pontos de vida.")
+                    if vidaCpu < hp-20:
+                        vidaCpu = vidaCpu + 20
+                        print(f"Inimigo se cura!!! Ganhou 20 pontos de vida.")
+                    else:
+                        cura = hp-vidaCpu
+                        vidaCpu= vidaCpu+ cura
+                        print(f"Inimigo se cura!!! Ganhou {cura} pontos de vida.")
+
         if vidaJogador > 0:
             print(f"\nParabéns {nomeJogador}!, você ganhou!\n")
         else:
