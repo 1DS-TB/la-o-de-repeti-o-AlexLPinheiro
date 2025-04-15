@@ -1,3 +1,4 @@
+#Finalizado
 N = int(input("Digite o limite de termos da função: "))
 s = 0
 for n in range(N):

@@ -1,3 +1,4 @@
+#Finalizado
 num1 = int(input("Digite o primeiro numero do intervalo: "))
 num2 = int(input("Digite o segundo numero do intervalo: "))
 listakaprekar = []

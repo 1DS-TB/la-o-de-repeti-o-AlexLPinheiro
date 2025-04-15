@@ -1,3 +1,4 @@
+#Finalizado
 n = int(input("Digite um número inteiro: "))
 a = 0
 b = 1
