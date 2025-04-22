@@ -19,7 +19,7 @@ else:
 
 
         if primo:
-            print(f"O número {numero} é primo!")
+            print(f"O número {numero} eh primo!")
         else:
-            print(f"O número {numero} não é primo!")
+            print(f"O número {numero} nao eh primo!")
 
